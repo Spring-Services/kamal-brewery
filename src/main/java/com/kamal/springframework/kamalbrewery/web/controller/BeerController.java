@@ -28,16 +28,14 @@ private final BeerService beerService;
     public ResponseEntity postBeer(@RequestBody BeerDto beerDto){
         BeerDto savedBeerDto = beerService.saveBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","/api/v1/beer"+savedBeerDto.getId().toString());
+        headers.add("Location","/api/v1/beer/"+savedBeerDto.getId().toString());
         return new ResponseEntity(headers,HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
     public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
-        BeerDto updatedBeer = beerService.updateBeerById(beerId,beerDto);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","/api/v1/beer"+updatedBeer.getId().toString());
-        return new ResponseEntity(headers,HttpStatus.NO_CONTENT);
+        beerService.updateBeerById(beerId,beerDto);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{beerId}")

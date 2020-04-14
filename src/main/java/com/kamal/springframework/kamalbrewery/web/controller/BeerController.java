@@ -34,10 +34,8 @@ private final BeerService beerService;
 
     @PutMapping("/{beerId}")
     public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
-        BeerDto updatedBeer = beerService.updateBeerById(beerId,beerDto);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","/api/v1/beer/"+updatedBeer.getId().toString());
-        return new ResponseEntity(headers,HttpStatus.NO_CONTENT);
+        beerService.updateBeerById(beerId,beerDto);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{beerId}")
